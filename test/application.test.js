@@ -4,7 +4,9 @@ import test from "node:test";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
+import { Resident } from "../src/models/Resident.js"
 
+// Starter Test Cases
 const app = createApp();
 
 test("home page returns successfully", async () => {
@@ -56,3 +58,61 @@ test("unknown route returns HTTP 404", async () => {
     message: "Resource not found"
   });
 });
+
+// T-01 Test Cases
+const validResidentInfo = {
+  id: 11,
+  firstName: "Allan",
+  lastName: "Funelas",
+  address: "1063 Jimenez St.",
+  contactNumber: '09204096822',
+  email: "funelasallanjohn@gmail.com"
+}
+//  T-01 Test Case # 1
+test("Resident can be created using valid Resident information", () => {
+  const resident = new Resident(validResidentInfo);
+  assert.ok(resident instanceof Resident);
+  assert.equal(resident.id, 11);
+  assert.equal(resident.firstName, "Allan");
+  assert.equal(resident.lastName, "Funelas");
+  assert.equal(resident.address, "1063 Jimenez St.");
+  assert.equal(resident.contactNumber, "09204096822")
+  assert.equal(resident.email, "funelasallanjohn@gmail.com")
+})
+//  T-01 Test Case # 2
+test("Resident information can be retrieved and updated correctly", () => {
+  const resident = new Resident(validResidentInfo);
+
+  resident.id = 2;
+  resident.firstName = "Buzz";
+  resident.lastName = "Lightyear";
+  resident.address = "Infinity Lot, Beyond Subdivision";
+  resident.contactNumber = "09199592755";
+  resident.email = "buzzlightyear@spaceranger.com"
+
+  assert.equal(resident.id, 2);
+  assert.equal(resident.firstName, "Buzz");
+  assert.equal(resident.lastName, "Lightyear");
+  assert.equal(resident.address, "Infinity Lot, Beyond Subdivision");
+  assert.equal(resident.contactNumber, "09199592755");
+  assert.equal(resident.email, "buzzlightyear@spaceranger.com");
+})
+//  T-01 Test Case # 3
+test("Resident model can represent the Active status", () => {
+  const resident = new Resident(validResidentInfo);
+
+  assert.equal(resident.status, "Active");
+})
+//  T-01 Test Case # 4 (Optional for id null default)
+test("Resident id defaults to null when no value is given", () => {
+  const resident = new Resident({
+    firstName: "Marco Polo",
+    lastName: "Junior",
+    address: "406 Marco Archipelago Subdivision",
+    email: "marco@polo.com",
+    contactNumber: "09135772823"
+  })
+
+  assert.equal(resident.id, null)
+})
+
