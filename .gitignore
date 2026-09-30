@@ -40,3 +40,6 @@ Thumbs.db
 
 # Database files
 *.db
+
+# Ticket Information
+Current-Ticket.md
