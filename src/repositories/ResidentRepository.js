@@ -83,28 +83,35 @@ export class ResidentRepository {
         return rows.map((row) => this._mapRowToResident(row));
     }
     update(resident) {
-    const stmt = this.db.prepare(`
-        UPDATE residents
-        SET
-            first_name = ?,
-            last_name = ?,
-            address = ?,
-            contact_number = ?,
-            email = ?
-        WHERE id = ?
-    `);
-    stmt.run(
-        resident.firstName,
-        resident.lastName,
-        resident.address,
-        resident.contactNumber,
-        resident.email,
-        resident.id
-    );
-    return this.findById(resident.id);
-}
-
-
+        const stmt = this.db.prepare(`
+            UPDATE residents
+            SET
+                first_name = ?,
+                last_name = ?,
+                address = ?,
+                contact_number = ?,
+                email = ?
+            WHERE id = ?
+        `);
+        stmt.run(
+            resident.firstName,
+            resident.lastName,
+            resident.address,
+            resident.contactNumber,
+            resident.email,
+            resident.id
+        );
+        return this.findById(resident.id);
+    }
+    deactivateById(residentId) {
+        const stmt = this.db.prepare(`
+            UPDATE residents
+            SET status = 'Inactive'
+            WHERE id = ?
+        `);
+        stmt.run(residentId);
+        return this.findById(residentId);
+    }
     close() {
         this.db.close();
     }
