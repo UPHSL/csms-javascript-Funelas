@@ -45,6 +45,15 @@ export class ServiceRequestRepository {
         if (!row) return null;
         return this._mapRowToServiceRequest(row);
     }
+    updateStatus(serviceRequestId, newStatus) {
+        const stmt = this.db.prepare(`
+            UPDATE service_requests
+            SET status = ?
+            WHERE id = ?
+        `);
+        stmt.run(newStatus, serviceRequestId);
+        return this.findById(serviceRequestId);
+    }
 
     count() {
         const stmt = this.db.prepare(`SELECT COUNT(*) as total FROM service_requests`);
