@@ -60,6 +60,49 @@ export class ServiceRequestRepository {
         const row = stmt.get();
         return Number(row.total);
     }
+    findAll() {
+        const stmt = this.db.prepare(`
+            SELECT id, resident_id, service_type, description, date_requested, status
+            FROM service_requests
+            ORDER BY
+                date_requested DESC,
+                id DESC
+        `);
+        const rows = stmt.all();
+        return rows.map((row) => this._mapRowToServiceRequest(row));
+    }
+
+    searchAndFilter(searchTerm, statusFilter) {
+        const params = [];
+        const conditions = [];
+
+        // Text search condition
+        if (searchTerm && searchTerm.trim().length > 0) {
+            const pattern = `%${searchTerm.trim()}%`;
+            conditions.push(`(LOWER(service_type) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?))`);
+            params.push(pattern, pattern);
+        }
+
+        // Status filter condition
+        if (statusFilter && statusFilter.trim().length > 0) {
+            conditions.push(`status = ?`);
+            params.push(statusFilter.trim());
+        }
+
+        const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+        const stmt = this.db.prepare(`
+            SELECT id, resident_id, service_type, description, date_requested, status
+            FROM service_requests
+            ${where}
+            ORDER BY
+                date_requested DESC,
+                id DESC
+        `);
+
+        const rows = stmt.all(...params);
+        return rows.map((row) => this._mapRowToServiceRequest(row));
+    }
 
     close() {
         this.db.close();
