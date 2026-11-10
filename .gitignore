@@ -40,6 +40,7 @@ Thumbs.db
 
 # Database files
 *.db
+*.sqlite
 
 # Ticket Information
 Current-Ticket.md
