@@ -19,7 +19,7 @@ body {
   background: #f3f4f6;
 }
 
-.container {
+.home-container {
   display: grid;
   min-height: 100vh;
   place-items: center;
