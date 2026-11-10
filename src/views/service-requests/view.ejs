@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Request #<%= serviceRequest.id %> - CSMS</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/residents.css">
+  <link rel="stylesheet" href="/css/service-requests.css">
+</head>
+<body>
+  <%- include('../partials/nav', { activePage: 'serviceRequests' }) %>
+
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Service Request <span class="sr-id">#<%= serviceRequest.id %></span></h1>
+      <a href="/service-requests" class="btn btn-ghost">← Back</a>
+    </header>
+
+    <% if (flash) { %>
+      <div class="alert alert-success"><%= flash %></div>
+    <% } %>
+
+    <div class="sr-detail-card">
+      <dl class="sr-detail-list">
+        <div class="sr-detail-row">
+          <dt>ID</dt>
+          <dd><%= serviceRequest.id %></dd>
+        </div>
+        <div class="sr-detail-row">
+          <dt>Resident ID</dt>
+          <dd><a href="/residents"><%= serviceRequest.residentId %></a></dd>
+        </div>
+        <div class="sr-detail-row">
+          <dt>Service Type</dt>
+          <dd><%= serviceRequest.serviceType %></dd>
+        </div>
+        <div class="sr-detail-row">
+          <dt>Description</dt>
+          <dd class="sr-description"><%= serviceRequest.description %></dd>
+        </div>
+        <div class="sr-detail-row">
+          <dt>Date Requested</dt>
+          <dd><%= serviceRequest.dateRequested %></dd>
+        </div>
+        <div class="sr-detail-row">
+          <dt>Status</dt>
+          <dd>
+            <span class="sr-status sr-status-<%= serviceRequest.status.toLowerCase().replace(' ', '-') %>">
+              <%= serviceRequest.status %>
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="sr-actions">
+      <% if (serviceRequest.status === 'Pending') { %>
+        <form method="POST" action="/service-requests/<%= serviceRequest.id %>/status" style="display:inline;">
+          <input type="hidden" name="targetStatus" value="In Progress">
+          <button type="submit" class="btn btn-primary">Start Processing</button>
+        </form>
+        <form method="POST" action="/service-requests/<%= serviceRequest.id %>/status" style="display:inline;">
+          <input type="hidden" name="targetStatus" value="Cancelled">
+          <button type="submit" class="btn btn-danger"
+            onclick="return confirm('Cancel this Service Request?')">Cancel</button>
+        </form>
+      <% } else if (serviceRequest.status === 'In Progress') { %>
+        <form method="POST" action="/service-requests/<%= serviceRequest.id %>/status" style="display:inline;">
+          <input type="hidden" name="targetStatus" value="Completed">
+          <button type="submit" class="btn btn-success">Complete</button>
+        </form>
+        <form method="POST" action="/service-requests/<%= serviceRequest.id %>/status" style="display:inline;">
+          <input type="hidden" name="targetStatus" value="Cancelled">
+          <button type="submit" class="btn btn-danger"
+            onclick="return confirm('Cancel this Service Request?')">Cancel</button>
+        </form>
+      <% } else { %>
+        <p class="terminal-note">
+          This Service Request is <strong><%= serviceRequest.status %></strong> and requires no further action.
+        </p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

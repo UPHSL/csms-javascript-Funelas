@@ -54,7 +54,7 @@
   margin-bottom: 0.4rem;
 }
 
-.search-row {
+.resident-search-row {
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -83,16 +83,12 @@
 
 /* Status badges */
 .status-badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
   font-weight: 700;
+  font-size: 0.9rem;
 }
 
-.status-active   { background: #d1fae5; color: #065f46; }
-.status-inactive { background: #fee2e2; color: #991b1b; }
-
+.status-active   { color: #059669; }
+.status-inactive { color: #dc2626; }
 .status-label-inline { font-size: 0.8rem; color: #9ca3af; }
 
 /* Form */
@@ -107,7 +103,8 @@
 
 .form-group label { font-weight: 600; font-size: 0.9rem; }
 
-.input {
+.form-group .input,
+.search-section .input {
   padding: 0.5rem 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;

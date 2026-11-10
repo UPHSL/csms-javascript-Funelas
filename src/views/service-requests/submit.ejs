@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Service Request - CSMS</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/residents.css">
+  <link rel="stylesheet" href="/css/service-requests.css">
+</head>
+<body>
+  <%- include('../partials/nav', { activePage: 'serviceRequests' }) %>
+
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Submit Service Request</h1>
+      <a href="/service-requests" class="btn btn-ghost">← Back</a>
+    </header>
+
+    <% if (residentError) { %>
+      <div class="alert alert-error"><%= residentError %></div>
+    <% } %>
+
+    <% if (errors.length > 0) { %>
+      <div class="alert alert-error">
+        <strong>Please fix the following:</strong>
+        <ul>
+          <% errors.forEach(field => { %>
+            <li><%= field %> is invalid.</li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <p class="helper-text">
+      Need to find a Resident ID? <a href="/residents">View Residents</a>
+    </p>
+
+    <form method="POST" action="/service-requests/new" class="resident-form">
+      <div class="form-group">
+        <label for="residentId">Resident ID</label>
+        <input type="number" id="residentId" name="residentId"
+          value="<%= values.residentId ?? '' %>"
+          class="input <%= errors.includes('residentId') ? 'input-error' : '' %>"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="serviceType">Service Type</label>
+        <input type="text" id="serviceType" name="serviceType"
+          value="<%= values.serviceType ?? '' %>"
+          class="input <%= errors.includes('serviceType') ? 'input-error' : '' %>"
+          placeholder="e.g. Barangay Clearance"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description"
+          class="input textarea <%= errors.includes('description') ? 'input-error' : '' %>"
+          rows="4"
+          placeholder="Describe the request..."
+          required><%= values.description ?? '' %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="dateRequested">Date Requested</label>
+        <input type="date" id="dateRequested" name="dateRequested"
+          value="<%= values.dateRequested ?? '' %>"
+          class="input <%= errors.includes('dateRequested') ? 'input-error' : '' %>"
+          required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+        <a href="/service-requests" class="btn btn-ghost">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
