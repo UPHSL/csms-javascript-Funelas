@@ -1,0 +1,134 @@
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary   { background: #2563eb; color: #fff; }
+.btn-secondary { background: #6b7280; color: #fff; }
+.btn-danger    { background: #dc2626; color: #fff; }
+.btn-ghost     { background: transparent; color: #374151; border: 1px solid #d1d5db; }
+.btn-sm        { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+
+/* Alerts */
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.alert-success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.alert-error   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+/* Search */
+.search-section { margin-bottom: 1.5rem; }
+
+.search-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Table */
+.residents-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.residents-table th,
+.residents-table td {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.residents-table thead tr { background: #f3f4f6; }
+.residents-table tbody tr:hover { background: #f9fafb; }
+
+.actions { display: flex; gap: 0.4rem; align-items: center; }
+
+.empty-message { color: #6b7280; font-style: italic; }
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.status-active   { background: #d1fae5; color: #065f46; }
+.status-inactive { background: #fee2e2; color: #991b1b; }
+
+.status-label-inline { font-size: 0.8rem; color: #9ca3af; }
+
+/* Form */
+.resident-form { max-width: 520px; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label { font-weight: 600; font-size: 0.9rem; }
+
+.input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.input-error { border-color: #dc2626; }
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.resident-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
