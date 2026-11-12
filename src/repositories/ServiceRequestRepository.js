@@ -103,6 +103,30 @@ export class ServiceRequestRepository {
         const rows = stmt.all(...params);
         return rows.map((row) => this._mapRowToServiceRequest(row));
     }
+    countAll() {
+        const stmt = this.db.prepare(`SELECT COUNT(*) as total FROM service_requests`);
+        const row = stmt.get();
+        return Number(row.total);
+    }
+
+    countByStatus(status) {
+        const stmt = this.db.prepare(`SELECT COUNT(*) as total FROM service_requests WHERE status = ?`);
+        const row = stmt.get(status);
+        return Number(row.total);
+    }
+
+    findRecent(limit = 5) {
+        const stmt = this.db.prepare(`
+            SELECT id, resident_id, service_type, description, date_requested, status
+            FROM service_requests
+            ORDER BY
+                date_requested DESC,
+                id DESC
+            LIMIT ?
+        `);
+        const rows = stmt.all(limit);
+        return rows.map((row) => this._mapRowToServiceRequest(row));
+    }
 
     close() {
         this.db.close();

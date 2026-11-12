@@ -112,6 +112,18 @@ export class ResidentRepository {
         stmt.run(residentId);
         return this.findById(residentId);
     }
+    countAll() {
+        const stmt = this.db.prepare(`SELECT COUNT(*) as total FROM residents`);
+        const row = stmt.get();
+        return Number(row.total);
+    }
+
+    countByStatus(status) {
+        const stmt = this.db.prepare(`SELECT COUNT(*) as total FROM residents WHERE status = ?`);
+        const row = stmt.get(status);
+        return Number(row.total);
+    }
+
     close() {
         this.db.close();
     }
