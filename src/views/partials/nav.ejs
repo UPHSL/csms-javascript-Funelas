@@ -1,7 +1,8 @@
 <nav class="main-nav">
   <div class="nav-inner">
-    <span class="nav-brand">CSMS</span>
+    <a href="/dashboard" class="nav-brand">CSMS</a>
     <div class="nav-links">
+      <a href="/dashboard" class="nav-link <%= activePage === 'dashboard' ? 'nav-link-active' : '' %>">Dashboard</a>
       <a href="/residents" class="nav-link <%= activePage === 'residents' ? 'nav-link-active' : '' %>">Residents</a>
       <a href="/service-requests" class="nav-link <%= activePage === 'serviceRequests' ? 'nav-link-active' : '' %>">Service Requests</a>
     </div>
