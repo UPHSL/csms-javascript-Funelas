@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CSMS</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/residents.css">
+  <link rel="stylesheet" href="/css/service-requests.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <%- include('../partials/nav', { activePage: 'dashboard' }) %>
+  <div class="page-container">
+
+    <header class="dash-header">
+      <h1>Dashboard</h1>
+      <p>Community Services Management System — current operational summary</p>
+    </header>
+
+    <!-- Residents -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2 class="dash-section-title">Residents</h2>
+        <a href="/residents" class="dash-section-link">Manage residents &rarr;</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-label">Total</div>
+          <div class="stat-value"><%= summary.residents.total %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Active</div>
+          <div class="stat-value"><%= summary.residents.active %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Inactive</div>
+          <div class="stat-value"><%= summary.residents.inactive %></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Requests -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2 class="dash-section-title">Service Requests</h2>
+        <a href="/service-requests" class="dash-section-link">Manage requests &rarr;</a>
+      </div>
+
+      <!-- Open count is the most operationally important number -->
+      <div class="open-callout">
+        <div class="open-callout-value"><%= summary.serviceRequests.open %></div>
+        <div>
+          <div class="open-callout-label">Open requests</div>
+          <div class="open-callout-sub">
+            <%= summary.serviceRequests.pending %> pending
+            &middot;
+            <%= summary.serviceRequests.inProgress %> in progress
+          </div>
+        </div>
+      </div>
+
+      <!-- Full breakdown -->
+      <div class="stat-row stat-row-sm">
+        <div class="stat-item">
+          <div class="stat-label">Total</div>
+          <div class="stat-value"><%= summary.serviceRequests.total %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Pending</div>
+          <div class="stat-value"><%= summary.serviceRequests.pending %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">In Progress</div>
+          <div class="stat-value"><%= summary.serviceRequests.inProgress %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Completed</div>
+          <div class="stat-value"><%= summary.serviceRequests.completed %></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Cancelled</div>
+          <div class="stat-value"><%= summary.serviceRequests.cancelled %></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Service Requests -->
+    <section class="dash-section">
+      <div class="dash-section-header">
+        <h2 class="dash-section-title">Recent Service Requests</h2>
+      </div>
+      <% if (summary.recentServiceRequests.length === 0) { %>
+        <p class="empty-message">No Service Requests available.</p>
+      <% } else { %>
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Resident ID</th>
+              <th>Service Type</th>
+              <th>Date Requested</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% summary.recentServiceRequests.forEach(sr => { %>
+              <tr>
+                <td><%= sr.id %></td>
+                <td><%= sr.residentId %></td>
+                <td><%= sr.serviceType %></td>
+                <td><%= sr.dateRequested %></td>
+                <td>
+                  <span class="sr-status sr-status-<%= sr.status.toLowerCase().replace(' ', '-') %>">
+                    <%= sr.status %>
+                  </span>
+                </td>
+                <td>
+                  <a href="/service-requests/<%= sr.id %>" class="dash-section-link">View</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    </section>
+
+  </div>
+</body>
+</html>

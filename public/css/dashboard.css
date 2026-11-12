@@ -1,0 +1,162 @@
+
+
+/* Page header */
+.dash-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d6d3ce;
+}
+
+.dash-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.2rem 0;
+}
+
+.dash-header p {
+  font-size: 0.875rem;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+/* Section */
+.dash-section {
+  margin-bottom: 3rem;
+}
+
+.dash-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.dash-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+.dash-section-link {
+  font-size: 0.8rem;
+  color: #1e3a5f;
+  text-decoration: none;
+}
+
+.dash-section-link:hover {
+  text-decoration: underline;
+}
+
+/* Stat row — no cards, just aligned columns */
+.stat-row {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid #d6d3ce;
+  border-bottom: 1px solid #d6d3ce;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  border-right: 1px solid #d6d3ce;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  margin-bottom: 0.4rem;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Open count — the one number that gets accent treatment */
+.stat-item-accent .stat-value {
+  color: #1e3a5f;
+}
+
+/* SR breakdown row — slightly smaller numbers */
+.stat-row-sm .stat-value {
+  font-size: 1.6rem;
+}
+
+/* Open callout — sits above the breakdown */
+.open-callout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.25rem 0 0.75rem 0;
+}
+
+
+.open-callout-value {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1e3a5f;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.open-callout-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e3a5f;
+  margin-bottom: 0.2rem;
+}
+
+.open-callout-sub {
+  font-size: 0.8rem;
+  color: #6b6b6b;
+  margin-top: 0;
+}
+
+
+/* Recent table — reuses existing table styles, minor overrides */
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.dash-table th {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #d6d3ce;
+  text-align: left;
+  background: none;
+}
+
+.dash-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #eae8e4;
+  color: #1a1a1a;
+  vertical-align: middle;
+}
+
+.dash-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.dash-table tbody tr:hover td {
+  background: #f0ede8;
+}

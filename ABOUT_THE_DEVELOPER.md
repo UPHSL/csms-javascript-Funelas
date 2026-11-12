@@ -5,16 +5,16 @@ Complete this file during Sprint 0.
 ## Student Information
 
 **Full Name:**  
-`Enter your full name`
+`Allan John Funelas`
 
 **Student Number:**  
-`Enter your student number`
+`23-1720-926`
 
 **Section:**  
-`Enter your section`
+`J4A`
 
 **GitHub Username:**  
-`Enter your GitHub username`
+`Funelas`
 
 **Primary Technology Stack:**  
 JavaScript with Express.js
@@ -23,30 +23,30 @@ JavaScript with Express.js
 
 Briefly describe your current programming experience.
 
-`Write your answer here.`
+`I have an adequate amount of experience when it comes to programming, specifically in web development. However, I am still looking forward to learn more especially when it comes to various logic implementation that we will encounter in the future.`
 
 ## Learning Goal
 
 What do you want to learn or improve during this course?
 
-`Write your answer here.`
+`I want to learn the syntax and fundamentals of Javascript because apparently, Javascript is one of the most used language when creating websites. Also, if possible I'd want to learn Typescript since it improves developer experience by early bug detection and being type-sensitive to ensure that the project are developed efficiently.`
 
 ## Development Environment
 
 **Operating System:**  
-`Enter your operating system`
+`Windows 10 Pro`
 
 **Node.js Version:**  
-`Enter the output of node --version`
+`v26.3.0`
 
 **npm Version:**  
-`Enter the output of npm --version`
+`12.0.2`
 
 **VS Code Installed:**  
-`Yes or No`
+`Yes`
 
 ## Academic Integrity Confirmation
 
-- [ ] I completed this profile using my own information.
-- [ ] I understand that I must be able to explain all work I submit.
-- [ ] I will disclose outside and AI assistance when required.
+- [ ✔ ] I completed this profile using my own information.
+- [ ✔ ] I understand that I must be able to explain all work I submit.
+- [ ✔ ] I will disclose outside and AI assistance when required.

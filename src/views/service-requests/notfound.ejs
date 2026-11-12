@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Request Not Found - CSMS</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/residents.css">
+  <link rel="stylesheet" href="/css/service-requests.css">
+</head>
+<body>
+  <%- include('../partials/nav', { activePage: 'serviceRequests' }) %>
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Service Request Not Found</h1>
+      <a href="/service-requests" class="btn btn-ghost">← Back</a>
+    </header>
+    <div class="alert alert-error">
+      No Service Request was found with ID <strong><%= id %></strong>.
+    </div>
+  </div>
+</body>
+</html>

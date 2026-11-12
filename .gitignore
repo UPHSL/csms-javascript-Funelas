@@ -37,3 +37,10 @@ temp/
 # Operating-system files
 .DS_Store
 Thumbs.db
+
+# Database files
+*.db
+*.sqlite
+
+# Ticket Information
+Current-Ticket.md

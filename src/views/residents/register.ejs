@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Resident - CSMS</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/residents.css">
+  <link rel="stylesheet" href="/css/service-requests.css">
+</head>
+<body>
+  <%- include('../partials/nav', { activePage: 'residents' }) %>
+
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Register Resident</h1>
+      <a href="/residents" class="btn btn-ghost">← Back to Residents</a>
+    </header>
+
+    <% if (errors.length > 0) { %>
+      <div class="alert alert-error">
+        <strong>Please fix the following:</strong>
+        <ul>
+          <% errors.forEach(field => { %>
+            <li><%= field %> is invalid.</li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/residents/register" class="resident-form">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName"
+          value="<%= values.firstName ?? '' %>"
+          class="input <%= errors.includes('firstName') ? 'input-error' : '' %>"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName"
+          value="<%= values.lastName ?? '' %>"
+          class="input <%= errors.includes('lastName') ? 'input-error' : '' %>"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address"
+          value="<%= values.address ?? '' %>"
+          class="input <%= errors.includes('address') ? 'input-error' : '' %>"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="contactNumber">Contact Number</label>
+        <input type="text" id="contactNumber" name="contactNumber"
+          value="<%= values.contactNumber ?? '' %>"
+          class="input <%= errors.includes('contactNumber') ? 'input-error' : '' %>"
+          placeholder="09XXXXXXXXX">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email"
+          value="<%= values.email ?? '' %>"
+          class="input <%= errors.includes('email') ? 'input-error' : '' %>">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Register Resident</button>
+        <a href="/residents" class="btn btn-ghost">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
