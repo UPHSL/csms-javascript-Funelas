@@ -16,6 +16,10 @@ const DEFAULT_DB_PATH = path.join(currentDirectory, "..", "..", "csms.sqlite");
 function getDbPath() {
     return process.env.CSMS_DB_PATH ?? DEFAULT_DB_PATH;
 }
+function parseId(raw) {
+    const n = Number(raw);
+    return Number.isInteger(n) && n > 0 ? n : null;
+}
 
 // GET /residents
 export function listResidents(req, res) {
@@ -70,13 +74,14 @@ export function registerResident(req, res) {
 export function showEditForm(req, res) {
     const repository = new ResidentRepository(getDbPath());
     try {
-        const id = Number(req.params.id);
+        const id = parseId(req.params.id);
+        if (!id) {
+            return res.status(404).render("residents/notfound", { id: req.params.id });
+        }
         const resident = repository.findById(id);
-
         if (!resident) {
             return res.status(404).render("residents/notfound", { id });
         }
-
         res.render("residents/edit", {
             resident,
             errors: [],
@@ -99,15 +104,15 @@ export function updateResident(req, res) {
     try {
         const validator = new ResidentValidator();
         const updateService = new ResidentUpdateService(validator, repository);
-        const id = Number(req.params.id);
+        const id = parseId(req.params.id);
+        if (!id) {
+            return res.status(404).render("residents/notfound", { id: req.params.id });
+        }
         const { firstName, lastName, address, contactNumber, email } = req.body;
-
         const result = updateService.updateResident(id, { firstName, lastName, address, contactNumber, email });
-
         if (result.notFound) {
             return res.status(404).render("residents/notfound", { id });
         }
-
         if (!result.success) {
             const existing = repository.findById(id);
             return res.render("residents/edit", {
@@ -116,7 +121,6 @@ export function updateResident(req, res) {
                 values: { firstName, lastName, address, contactNumber, email }
             });
         }
-
         res.redirect("/residents?flash=Resident+information+updated+successfully.");
     } finally {
         repository.close();
@@ -128,14 +132,14 @@ export function deactivateResident(req, res) {
     const repository = new ResidentRepository(getDbPath());
     try {
         const deactivationService = new ResidentDeactivationService(repository);
-        const id = Number(req.params.id);
-
+        const id = parseId(req.params.id);
+        if (!id) {
+            return res.status(404).render("residents/notfound", { id: req.params.id });
+        }
         const result = deactivationService.deactivateResident(id);
-
         if (result.notFound) {
             return res.status(404).render("residents/notfound", { id });
         }
-
         res.redirect("/residents?flash=Resident+deactivated+successfully.");
     } finally {
         repository.close();

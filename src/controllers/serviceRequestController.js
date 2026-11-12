@@ -16,6 +16,10 @@ const DEFAULT_DB_PATH = path.join(currentDirectory, "..", "..", "csms.sqlite");
 function getDbPath() {
     return process.env.CSMS_DB_PATH ?? DEFAULT_DB_PATH;
 }
+function parseId(raw) {
+    const n = Number(raw);
+    return Number.isInteger(n) && n > 0 ? n : null;
+}
 
 function makeRepositories() {
     const dbPath = getDbPath();
@@ -108,14 +112,15 @@ export function submitServiceRequest(req, res) {
 export function viewServiceRequest(req, res) {
     const { residentRepository, serviceRequestRepository } = makeRepositories();
     try {
-        const id = Number(req.params.id);
+        const id = parseId(req.params.id);
+        if (!id) {
+            return res.status(404).render("service-requests/notfound", { id: req.params.id });
+        }
         const queryService = new ServiceRequestQueryService(serviceRequestRepository);
         const serviceRequest = queryService.viewServiceRequest(id);
-
         if (!serviceRequest) {
             return res.status(404).render("service-requests/notfound", { id });
         }
-
         res.render("service-requests/view", {
             serviceRequest,
             flash: req.query.flash ?? null
@@ -130,26 +135,24 @@ export function viewServiceRequest(req, res) {
 export function changeStatus(req, res) {
     const { residentRepository, serviceRequestRepository } = makeRepositories();
     try {
-        const id = Number(req.params.id);
+        const id = parseId(req.params.id);
+        if (!id) {
+            return res.status(404).render("service-requests/notfound", { id: req.params.id });
+        }
         const { targetStatus } = req.body;
         const statusService = new ServiceRequestStatusService(serviceRequestRepository);
-
         const result = statusService.manageStatus(id, targetStatus);
-
         if (result.notFound) {
             return res.status(404).render("service-requests/notfound", { id });
         }
-
         if (!result.success) {
             return res.redirect(`/service-requests/${id}?flash=Invalid+status+transition.`);
         }
-
         const messages = {
             "In Progress": "Service+Request+is+now+In+Progress.",
             "Completed":   "Service+Request+completed+successfully.",
             "Cancelled":   "Service+Request+cancelled+successfully."
         };
-
         const msg = messages[targetStatus] ?? "Status+updated.";
         res.redirect(`/service-requests/${id}?flash=${msg}`);
     } finally {
